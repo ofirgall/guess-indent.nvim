@@ -106,6 +106,10 @@ end
 ---@param bufnr integer? the buffer to set the indentation for (default is current buffer)
 ---@param silent boolean? whether or not to skip notification of change
 local function set_indentation(indentation, bufnr, silent)
+  if config.pre_guess_hook ~= nil then
+    config.pre_guess_hook(indentation == "tabs")
+  end
+
   bufnr = bufnr or vim.api.nvim_get_current_buf()
 
   local notification = "Failed to detect indentation style."
@@ -126,6 +130,11 @@ local function set_indentation(indentation, bufnr, silent)
   if not silent then
     vim.notify(notification)
   end
+
+  if config.post_guess_hook ~= nil then
+    config.post_guess_hook(indentation == "tabs")
+  end
+
 end
 
 ---Guess the indentation of the current buffer

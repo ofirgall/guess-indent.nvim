@@ -34,6 +34,8 @@ local default_config = {
     ["softtabstop"] = "detected",
     ["shiftwidth"] = "detected",
   },
+  pre_guess_hook = nil,
+  post_guess_hook = nil,
 }
 
 -- The current active config
